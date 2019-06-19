@@ -17,9 +17,7 @@ use super::*;
 #[derive(Debug, Clone, PartialEq, Hash)]
 pub struct SQLQuery {
     /// WITH (common table expressions, or CTEs)
-    pub ctes: Vec<
-    Cte
-    >,
+    pub ctes: Vec<Cte>,
     /// SELECT or UNION / EXCEPT / INTECEPT
     pub body: SQLSetExpr,
     /// ORDER BY
