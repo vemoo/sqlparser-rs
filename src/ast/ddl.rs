@@ -1,5 +1,6 @@
 //! AST types specific to CREATE/ALTER variants of `SQLStatement`
 //! (commonly referred to as Data Definition Language, or DDL)
+use super::IdentVec;
 use super::{DataType, Expr, Ident, ObjectName};
 
 /// An `ALTER TABLE` (`SQLStatement::SQLAlterTable`) operation

@@ -15,7 +15,7 @@ use std::fmt::Debug;
 use super::ast::*;
 use super::dialect::*;
 use super::parser::{Parser, ParserError};
-use super::tokenizer::Tokenizer;
+use super::tokenizer::{Token, TokenKind, Tokenizer};
 
 /// Tests use the methods on this struct to invoke the parser on one or
 /// multiple dialects.
@@ -134,5 +134,19 @@ pub fn expr_from_projection(item: &SelectItem) -> &Expr {
     match item {
         SelectItem::UnnamedExpr(expr) => expr,
         _ => panic!("Expected UnnamedExpr"),
+    }
+}
+
+pub trait StrIdentExt {
+    fn into_ident(&self) -> Ident;
+}
+impl StrIdentExt for str {
+    fn into_ident(&self) -> Ident {
+        Ident {
+            token: Token {
+                kind: TokenKind::make_word(self, None),
+                span: 0..0,
+            },
+        }
     }
 }

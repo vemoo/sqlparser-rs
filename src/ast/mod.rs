@@ -18,6 +18,7 @@ mod operator;
 mod query;
 mod value;
 
+use super::tokenizer::Token;
 use std::ops::Deref;
 
 pub use self::data_type::DataType;
@@ -45,7 +46,46 @@ where
 }
 
 /// Identifier name, in the originally quoted form (e.g. `"id"`)
-pub type Ident = String;
+#[derive(Debug, Clone, Eq, Hash)]
+pub struct Ident {
+    pub token: Token,
+}
+
+impl PartialEq for Ident {
+    fn eq(&self, other: &Self) -> bool {
+        self.to_string() == other.to_string()
+    }
+}
+
+impl PartialEq<String> for Ident {
+    fn eq(&self, other: &String) -> bool {
+        &self.to_string() == other
+    }
+}
+
+impl std::fmt::Display for Ident {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        f.write_str(&self.token.kind.to_string())
+    }
+}
+
+trait IdentVec {
+    fn join(&self, sep: &str) -> String;
+}
+
+impl IdentVec for Vec<Ident> {
+    fn join(&self, sep: &str) -> String {
+        use std::fmt::Write;
+        let mut res = String::new();
+        let mut delim = "";
+        for x in self {
+            res.push_str(delim);
+            delim = sep;
+            write!(&mut res, "{}", x).unwrap();
+        }
+        res
+    }
+}
 
 /// An SQL expression of any type.
 ///

@@ -47,7 +47,7 @@ fn parse_create_table_with_defaults() {
                 columns,
                 vec![
                     ColumnDef {
-                        name: "customer_id".into(),
+                        name: "customer_id".into_ident(),
                         data_type: DataType::Int,
                         collation: None,
                         options: vec![ColumnOptionDef {
@@ -58,7 +58,7 @@ fn parse_create_table_with_defaults() {
                         }],
                     },
                     ColumnDef {
-                        name: "store_id".into(),
+                        name: "store_id".into_ident(),
                         data_type: DataType::SmallInt,
                         collation: None,
                         options: vec![ColumnOptionDef {
@@ -67,7 +67,7 @@ fn parse_create_table_with_defaults() {
                         }],
                     },
                     ColumnDef {
-                        name: "first_name".into(),
+                        name: "first_name".into_ident(),
                         data_type: DataType::Varchar(Some(45)),
                         collation: None,
                         options: vec![ColumnOptionDef {
@@ -76,22 +76,22 @@ fn parse_create_table_with_defaults() {
                         }],
                     },
                     ColumnDef {
-                        name: "last_name".into(),
+                        name: "last_name".into_ident(),
                         data_type: DataType::Varchar(Some(45)),
-                        collation: Some(ObjectName(vec!["\"es_ES\"".into()])),
+                        collation: Some(ObjectName(vec!["\"es_ES\"".into_ident()])),
                         options: vec![ColumnOptionDef {
                             name: None,
                             option: ColumnOption::NotNull,
                         }],
                     },
                     ColumnDef {
-                        name: "email".into(),
+                        name: "email".into_ident(),
                         data_type: DataType::Varchar(Some(50)),
                         collation: None,
                         options: vec![],
                     },
                     ColumnDef {
-                        name: "address_id".into(),
+                        name: "address_id".into_ident(),
                         data_type: DataType::SmallInt,
                         collation: None,
                         options: vec![ColumnOptionDef {
@@ -100,7 +100,7 @@ fn parse_create_table_with_defaults() {
                         }],
                     },
                     ColumnDef {
-                        name: "activebool".into(),
+                        name: "activebool".into_ident(),
                         data_type: DataType::Boolean,
                         collation: None,
                         options: vec![
@@ -115,7 +115,7 @@ fn parse_create_table_with_defaults() {
                         ],
                     },
                     ColumnDef {
-                        name: "create_date".into(),
+                        name: "create_date".into_ident(),
                         data_type: DataType::Date,
                         collation: None,
                         options: vec![
@@ -132,7 +132,7 @@ fn parse_create_table_with_defaults() {
                         ],
                     },
                     ColumnDef {
-                        name: "last_update".into(),
+                        name: "last_update".into_ident(),
                         data_type: DataType::Timestamp,
                         collation: None,
                         options: vec![
@@ -147,7 +147,7 @@ fn parse_create_table_with_defaults() {
                         ],
                     },
                     ColumnDef {
-                        name: "active".into(),
+                        name: "active".into_ident(),
                         data_type: DataType::Int,
                         collation: None,
                         options: vec![ColumnOptionDef {
@@ -162,15 +162,15 @@ fn parse_create_table_with_defaults() {
                 with_options,
                 vec![
                     SqlOption {
-                        name: "fillfactor".into(),
+                        name: "fillfactor".into_ident(),
                         value: Value::Long(20)
                     },
                     SqlOption {
-                        name: "user_catalog_table".into(),
+                        name: "user_catalog_table".into_ident(),
                         value: Value::Boolean(true)
                     },
                     SqlOption {
-                        name: "autovacuum_vacuum_threshold".into(),
+                        name: "autovacuum_vacuum_threshold".into_ident(),
                         value: Value::Long(100)
                     },
                 ]

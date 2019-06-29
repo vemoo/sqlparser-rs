@@ -291,7 +291,7 @@ pub struct TableAlias {
 
 impl ToString for TableAlias {
     fn to_string(&self) -> String {
-        let mut s = self.name.clone();
+        let mut s = self.name.to_string();
         if !self.columns.is_empty() {
             s += &format!(" ({})", comma_separated_string(&self.columns));
         }
