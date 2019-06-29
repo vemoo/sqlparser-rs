@@ -39,67 +39,10 @@ impl<'a> Ptr<'a> {
         self.chars().next()
     }
 
-    fn at(&self, c: char) -> bool {
-        self.peek() == Some(c)
-    }
-
-    fn at_p(&self, pred: impl Fn(char) -> bool) -> bool {
-        match self.peek() {
-            Some(c) if pred(c) => true,
-            _ => false,
-        }
-    }
-
-    #[allow(dead_code)]
-    fn nth(&self, n: usize) -> Option<char> {
-        self.chars().nth(n)
-    }
-
-    fn nth_is(&self, n: usize, pred: impl Fn(char) -> bool) -> bool {
-        self.chars().nth(n).map(pred) == Some(true)
-    }
-
-    #[allow(dead_code)]
-    fn at_str(&self, s: &str) -> bool {
-        self.text[self.pos..].starts_with(s)
-    }
-
-    fn at_str_case_insensitive(&self, s: &str) -> bool {
-        let mut n = 0;
-        for (c1, c2) in self.chars().zip(s.chars()) {
-            if c1.to_ascii_lowercase() != c2.to_ascii_lowercase() {
-                return false;
-            }
-            n += 1;
-        }
-
-        n == s.len()
-    }
-
     fn next(&mut self) -> Option<char> {
         let c = self.chars().next()?;
         self.pos += c.len_utf8();
         Some(c)
-    }
-
-    fn bump_while(&mut self, pred: impl Fn(char) -> bool) {
-        loop {
-            match self.peek() {
-                Some(c) if pred(c) => {
-                    self.next();
-                }
-                _ => break,
-            }
-        }
-    }
-
-    fn current_text(&self) -> &str {
-        &self.text[..self.pos]
-    }
-
-    #[allow(dead_code)]
-    fn rest_text(&self) -> &str {
-        &self.text[self.pos..]
     }
 
     /// better name?
@@ -174,6 +117,8 @@ pub enum TokenKind {
     LBrace,
     /// Right brace `}`
     RBrace,
+    /// End of file
+    EOF,
 }
 
 impl ToString for TokenKind {
@@ -210,6 +155,7 @@ impl ToString for TokenKind {
             TokenKind::Ampersand => "&".to_string(),
             TokenKind::LBrace => "{".to_string(),
             TokenKind::RBrace => "}".to_string(),
+            TokenKind::EOF => "".to_string(),
         }
     }
 }
